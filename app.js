@@ -13,7 +13,6 @@ const campos = {
 };
 
 // EDMOUND trabajo esta parte
-
 const errores = {
   nombre: document.getElementById('errorNombre'),
   correo: document.getElementById('errorCorreo'),
@@ -52,7 +51,6 @@ function setEstadoCampo(campo, error, mensaje) {
     campo.classList.add('input-valido');
   }
 }
-
 // EDMOUND trabajo esta parte
 
 function validarNombre() {
@@ -135,7 +133,6 @@ function validarFormulario() {
 }
 
 // Luis Matos - trabajo esta parte
-
 function pintarRegistros() {
   const registros = obtenerRegistros();
 
@@ -148,7 +145,7 @@ function pintarRegistros() {
   listaRegistros.innerHTML = registros
     .map((registro) => {
       const departamento = registro.departamento.charAt(0).toUpperCase() + registro.departamento.slice(1);
-      return <li><strong>${registro.nombre}</strong> - ${departamento}</li>;
+      return `<li><strong>${registro.nombre}</strong> - ${departamento}</li>`;
     })
     .join('');
 
@@ -217,6 +214,6 @@ const primeraTarjeta = document.querySelector('.tarjeta .numero');
 if (primeraTarjeta) {
   primeraTarjeta.classList.add('resaltado-dashboard');
 }
-
-// Luis Matos - trabajo esta parte
 pintarRegistros();
+// Luis Matos - trabajo esta parte
+
