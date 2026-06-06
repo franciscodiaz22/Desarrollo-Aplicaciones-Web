@@ -14,7 +14,44 @@ const campos = {
 
 // EDMOUND trabajo esta parte
 
+const errores = {
+  nombre: document.getElementById('errorNombre'),
+  correo: document.getElementById('errorCorreo'),
+  telefono: document.getElementById('errorTelefono'),
+  departamento: document.getElementById('errorDepartamento'),
+  comentario: document.getElementById('errorComentario')
+};
 
+function obtenerRegistros() {
+  const datos = localStorage.getItem('registrosDashboard');
+  return datos ? JSON.parse(datos) : [];
+}
+
+function guardarRegistros(registros) {
+  localStorage.setItem('registrosDashboard', JSON.stringify(registros));
+}
+
+function mostrarMensaje(texto, tipo) {
+  mensajeFormulario.innerHTML = texto;
+  mensajeFormulario.classList.remove('mensaje-exito', 'mensaje-error', 'mensaje-visible');
+  mensajeFormulario.classList.add(tipo === 'exito' ? 'mensaje-exito' : 'mensaje-error', 'mensaje-visible');
+}
+
+function limpiarMensaje() {
+  mensajeFormulario.innerHTML = '';
+  mensajeFormulario.classList.remove('mensaje-exito', 'mensaje-error', 'mensaje-visible');
+}
+
+function setEstadoCampo(campo, error, mensaje) {
+  error.innerHTML = mensaje;
+  campo.classList.remove('input-error', 'input-valido');
+
+  if (mensaje) {
+    campo.classList.add('input-error');
+  } else {
+    campo.classList.add('input-valido');
+  }
+}
 
 // EDMOUND trabajo esta parte
 
