@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Home / Dashboard - Registro de Datos</title>
   <link rel="stylesheet" href="styles.css" />
+  <script src="app.js" defer></script>
 </head>
 <body>
 <!-- A partir de aqui van a comenzar a colocar su parte del codigo realizado -->
@@ -39,7 +40,7 @@
 
       <article class="tarjeta">
         <h2>Registros</h2>
-        <p class="numero">48</p>
+        <p class="numero" id="totalRegistros">0</p>
         <p>Datos almacenados durante este mes.</p>
       </article>
 
@@ -59,30 +60,38 @@
     <h2>Formulario de Registro de Datos</h2>
     <p>Complete los siguientes campos para registrar una nueva informacion.</p>
 
-<form action="#"method="post">
+<form id="formRegistro" action="#" method="post" novalidate>
 <label for="nombre">Nombre completo</label>
-<input type="text"id="nombre"name="nombre"placeholder="ingrese su nombre"required/>
+<input type="text" id="nombre" name="nombre" placeholder="Ingrese su nombre" required />
+<small class="campo-error" id="errorNombre"></small>
 
  <label for="correo">Correo electrónico</label>
- <input type="email" id="correo"name="correo"placeholder="ejemplo@correo.com"requires/>
+ <input type="email" id="correo" name="correo" placeholder="ejemplo@correo.com" required />
+ <small class="campo-error" id="errorCorreo"></small>
   
  <label for="telefono">Teléfono</label>
- <input type="tel"id="telefono"name="telefono"placeholder="809-000-0000"required/>
+ <input type="tel" id="telefono" name="telefono" placeholder="809-000-0000" required />
+ <small class="campo-error" id="errorTelefono"></small>
 
   <label for="departamento">Departamento</label>
-  <select id="departamento"name="departamento"required>
+  <select id="departamento" name="departamento" required>
   <option value="">Seleccione una opcion</option>
-  <opcion value="administracion">Administración</opcion>
-  <opcion value="ventas">Ventas</opcion>
-  <opcion value="soporte">Soporte Técnico</opcion>
-  <opcion value="tecnologia">Tecnología</opcion>
+  <option value="administracion">Administración</option>
+  <option value="ventas">Ventas</option>
+  <option value="soporte">Soporte Técnico</option>
+  <option value="tecnologia">Tecnología</option>
   </select>
+  <small class="campo-error" id="errorDepartamento"></small>
 
   <label for="comentario">Comentario</label>
-  <textarea id="comentario"name="comentario"rows="4"
+  <textarea id="comentario" name="comentario" rows="4"
   placeholder="Escriba una observación"></textarea>
+  <small class="campo-error" id="errorComentario"></small>
+
+  <div id="mensajeFormulario" class="mensaje-formulario" aria-live="polite"></div>
 
   <button type="submit">Registrar Datos</button>
+  <button type="button" id="btnLimpiar" class="btn-secundario">Limpiar historial</button>
 </form>
   </section>
    
@@ -93,6 +102,11 @@
 <aside class="aside" id="resumen">
         <h2>Resumen</h2>
         <p>Este dashboard permite visualizar información general y registrar nuevos datos mediante un formulario sencillo.</p>
+
+        <section class="historial">
+          <h3>Registros guardados</h3>
+          <ul id="listaRegistros"></ul>
+        </section>
 
         <section class="nota">
           <h3>Información</h3>
