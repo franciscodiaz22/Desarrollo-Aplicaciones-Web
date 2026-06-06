@@ -99,7 +99,87 @@ function validarFormulario() {
 
 // Luis Matos - trabajo esta parte
 
+function pintarRegistros() {
+  const registros = obtenerRegistros();
 
+  if (registros.length === 0) {
+    listaRegistros.innerHTML = '<li>No hay registros guardados aun.</li>';
+    totalRegistros.innerHTML = '0';
+    return;
+  }
+
+  listaRegistros.innerHTML = registros
+    .map((registro) => {
+      const departamento = registro.departamento.charAt(0).toUpperCase() + registro.departamento.slice(1);
+      return <li><strong>${registro.nombre}</strong> - ${departamento}</li>;
+    })
+    .join('');
+
+  totalRegistros.innerHTML = String(registros.length);
+}
+
+function agregarRegistro() {
+  const registros = obtenerRegistros();
+
+  const nuevoRegistro = {
+    nombre: campos.nombre.value.trim(),
+    correo: campos.correo.value.trim(),
+    telefono: campos.telefono.value.trim(),
+    departamento: campos.departamento.value,
+    comentario: campos.comentario.value.trim(),
+    fecha: new Date().toISOString()
+  };
+
+  registros.push(nuevoRegistro);
+  guardarRegistros(registros);
+}
+
+function limpiarEstadosFormulario() {
+  Object.values(errores).forEach((error) => {
+    error.innerHTML = '';
+  });
+
+  Object.values(campos).forEach((campo) => {
+    campo.classList.remove('input-error', 'input-valido');
+  });
+}
+
+form.addEventListener('submit', (evento) => {
+  evento.preventDefault();
+  limpiarMensaje();
+
+  const formularioValido = validarFormulario();
+
+  if (!formularioValido) {
+    mostrarMensaje('Revise los campos marcados en rojo antes de enviar.', 'error');
+    return;
+  }
+
+  agregarRegistro();
+  pintarRegistros();
+  mostrarMensaje('Registro guardado correctamente.', 'exito');
+  form.reset();
+  limpiarEstadosFormulario();
+});
+
+campos.nombre.addEventListener('input', validarNombre);
+campos.correo.addEventListener('input', validarCorreo);
+campos.telefono.addEventListener('input', validarTelefono);
+campos.departamento.addEventListener('change', validarDepartamento);
+campos.comentario.addEventListener('input', validarComentario);
+
+btnLimpiar.addEventListener('click', () => {
+  localStorage.removeItem('registrosDashboard');
+  pintarRegistros();
+  limpiarMensaje();
+  mostrarMensaje('Historial eliminado de LocalStorage.', 'exito');
+});
+
+// Uso de querySelector para demostrar manipulacion adicional del DOM.
+const primeraTarjeta = document.querySelector('.tarjeta .numero');
+if (primeraTarjeta) {
+  primeraTarjeta.classList.add('resaltado-dashboard');
+}
 
 // Luis Matos - trabajo esta parte
 pintarRegistros();
