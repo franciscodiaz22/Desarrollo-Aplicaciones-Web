@@ -22,13 +22,34 @@ const errores = {
   comentario: document.getElementById('errorComentario')
 };
 
-function obtenerRegistros() {
-  const datos = localStorage.getItem('registrosDashboard');
-  return datos ? JSON.parse(datos) : [];
+async function cargarEstadisticas() {
+  try {
+    const res = await fetch('/api/stats');
+    const stats = await res.json();
+    document.getElementById('totalUsuarios').textContent = stats.total_usuarios;
+    totalRegistros.textContent = stats.registros_mes;
+  } catch {
+    console.error('No se pudo conectar con el servidor.');
+  }
 }
 
-function guardarRegistros(registros) {
-  localStorage.setItem('registrosDashboard', JSON.stringify(registros));
+async function pintarRegistros() {
+  try {
+    const res = await fetch('/api/registros');
+    const registros = await res.json();
+
+    totalRegistros.textContent = registros.length;
+
+    listaRegistros.innerHTML = registros.length === 0
+      ? '<li>No hay registros aún.</li>'
+      : registros.map((r) =>
+          `<li><strong>${r.nombre}</strong> — ${r.departamento || 'Sin departamento'}</li>`
+        ).join('');
+
+    await cargarEstadisticas();
+  } catch {
+    listaRegistros.innerHTML = '<li>Error al cargar registros.</li>';
+  }
 }
 
 function mostrarMensaje(texto, tipo) {
@@ -136,7 +157,47 @@ function validarFormulario() {
 
 // Luis Matos - trabajo esta parte
 
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  limpiarMensaje();
 
+  if (!validarFormulario()) return;
+
+  const datos = {
+    nombre:       campos.nombre.value.trim(),
+    correo:       campos.correo.value.trim(),
+    telefono:     campos.telefono.value.trim(),
+    departamento: campos.departamento.value,
+    comentario:   campos.comentario.value.trim()
+  };
+
+  try {
+    const res = await fetch('/api/registros', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(datos)
+    });
+    const data = await res.json();
+
+    if (res.ok && data.success) {
+      mostrarMensaje('✅ Registro guardado exitosamente.', 'exito');
+      form.reset();
+      Object.values(campos).forEach((c) => c.classList.remove('input-valido', 'input-error'));
+      await pintarRegistros();
+    } else {
+      mostrarMensaje('❌ Error: ' + (data.error || 'No se pudo guardar.'), 'error');
+    }
+  } catch {
+    mostrarMensaje('❌ No se pudo conectar con el servidor.', 'error');
+  }
+});
+
+btnLimpiar.addEventListener('click', () => {
+  form.reset();
+  limpiarMensaje();
+  Object.values(campos).forEach((c) => c.classList.remove('input-valido', 'input-error'));
+  Object.values(errores).forEach((e) => { e.innerHTML = ''; });
+});
 
 // Luis Matos - trabajo esta parte
 pintarRegistros();
