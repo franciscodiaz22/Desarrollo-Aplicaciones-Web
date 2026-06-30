@@ -98,6 +98,6 @@ El servidor estará disponible en: **http://localhost:3000**
 - 
 - Jose Alexander González
 - Luis Eduardo Matos Lajara
-- Rosanny Estevez Jerez
 - Darlenny Altagracia Pimentel Ramos
 - Edmoun Ramírez
+- Rosanny Estevez Jerez
