@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión - Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="login.js" defer></script>
+</head>
+<body class="min-h-screen bg-slate-100 flex items-center justify-center p-4">
+
+  <main class="w-full max-w-md">
+    <div class="card">
+      <div class="text-center mb-6">
+        <h1 class="text-2xl font-bold text-institucional-azul">Panel Principal</h1>
+        <p class="text-slate-500 text-sm mt-1">Inicia sesión para administrar los registros</p>
+      </div>
+
+      <form id="formLogin" novalidate>
+        <label for="usuario" class="font-bold mb-1 block text-sm">Usuario</label>
+        <input type="text" id="usuario" name="usuario" class="input-field mb-4" placeholder="admin" autocomplete="username" required />
+
+        <label for="password" class="font-bold mb-1 block text-sm">Contraseña</label>
+        <input type="password" id="password" name="password" class="input-field mb-4" placeholder="••••••••" autocomplete="current-password" required />
+
+        <div id="mensajeLogin" class="mensaje-formulario" aria-live="polite"></div>
+
+        <button type="submit" class="btn-primary w-full">Iniciar sesión</button>
+      </form>
+
+      <p class="text-center text-sm text-slate-500 mt-5">
+        <a href="/Index.html" class="text-institucional-naranja font-semibold hover:underline">&larr; Volver al dashboard</a>
+      </p>
+    </div>
+  </main>
+
+</body>
+</html>

@@ -33,6 +33,50 @@ async function cargarEstadisticas() {
   }
 }
 
+// ---------- Sesión (Etapa 4 - Autenticación) ----------
+
+const sesionInfo = document.getElementById('sesionInfo');
+const linkLogin = document.getElementById('linkLogin');
+const btnLogout = document.getElementById('btnLogout');
+
+let estaAutenticado = false;
+let usuarioActual = null;
+
+async function verificarSesion() {
+  try {
+    const res = await fetch('/api/session');
+    const data = await res.json();
+    estaAutenticado = data.autenticado;
+    usuarioActual = data.usuario;
+  } catch {
+    estaAutenticado = false;
+    usuarioActual = null;
+  }
+  actualizarUISesion();
+}
+
+function actualizarUISesion() {
+  if (estaAutenticado) {
+    sesionInfo.textContent = `Sesión activa: ${usuarioActual.usuario}`;
+    linkLogin.classList.add('hidden');
+    btnLogout.classList.remove('hidden');
+  } else {
+    sesionInfo.textContent = '';
+    linkLogin.classList.remove('hidden');
+    btnLogout.classList.add('hidden');
+  }
+}
+
+btnLogout.addEventListener('click', async () => {
+  try {
+    await fetch('/api/logout', { method: 'POST' });
+  } finally {
+    estaAutenticado = false;
+    usuarioActual = null;
+    actualizarUISesion();
+  }
+});
+
 async function pintarRegistros() {
   try {
     const res = await fetch('/api/registros');
@@ -200,4 +244,8 @@ btnLimpiar.addEventListener('click', () => {
 });
 
 // Luis Matos - trabajo esta parte
-pintarRegistros();
+
+(async () => {
+  await verificarSesion();
+  await pintarRegistros();
+})();
