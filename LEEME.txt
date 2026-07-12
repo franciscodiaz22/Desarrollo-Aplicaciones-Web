@@ -1,0 +1,37 @@
+PARTE 1 de 4 — Tailwind CSS (Requisito #1 de la Etapa 4)
+==========================================================
+
+Que trae este zip:
+- tailwind.config.js
+- src/input.css
+- styles.css
+- package.json
+- package-lock.json
+- Index.html
+
+Que hace esta parte:
+Integra Tailwind CSS (con npm + su CLI de build) y convierte toda la
+interfaz de clases CSS propias a utilidades/componentes de Tailwind,
+manteniendo la paleta institucional (azul #0b1838 / naranja #f68121).
+login.html todavia no existe: el boton "Iniciar sesion" se ve pero no
+funciona hasta que se suba la Parte 2. Eso es normal.
+
+Pasos:
+1. Haz `git pull` del repo en tu maquina (rama etapa-3/backend).
+2. Copia TODOS los archivos y carpetas de este zip a la raiz del
+   proyecto, reemplazando lo que exista.
+3. Corre `npm install` (instala Tailwind).
+4. Corre `npm start` y abre http://localhost:3000/Index.html — debe
+   verse con el nuevo diseño, y el formulario debe seguir guardando
+   datos igual que antes.
+5. Sube tu commit:
+   git add tailwind.config.js src/input.css styles.css package.json package-lock.json Index.html
+   git commit -m "Etapa 4.1: Refactor de interfaz con Tailwind CSS"
+   git push
+
+Antes de subirlo, entiende que hiciste: instalaste Tailwind CSS via
+npm, creaste un archivo de entrada (src/input.css) con @tailwind y
+componentes reutilizables (@layer components), configuraste
+tailwind.config.js con los colores institucionales, y reemplazaste las
+clases CSS del HTML por clases de utilidad de Tailwind. Debes poder
+explicar esto en el video.

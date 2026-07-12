@@ -1,0 +1,57 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn-primary {
+    @apply bg-institucional-naranja text-white font-bold py-3 px-5 rounded-lg shadow-sm transition hover:bg-institucional-azul disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-slate-500 text-white font-bold py-3 px-5 rounded-lg shadow-sm transition hover:bg-slate-700;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white font-semibold py-1.5 px-3 rounded-md text-sm transition hover:bg-red-700;
+  }
+
+  .btn-edit {
+    @apply bg-institucional-azul text-white font-semibold py-1.5 px-3 rounded-md text-sm transition hover:bg-institucional-naranja;
+  }
+
+  .input-field {
+    @apply w-full border border-slate-200 rounded-lg px-3 py-3 text-sm outline-none transition focus:border-institucional-naranja;
+  }
+
+  .input-error {
+    @apply border-red-600 bg-red-50;
+  }
+
+  .input-valido {
+    @apply border-green-600 bg-green-50;
+  }
+
+  .campo-error {
+    @apply block min-h-[18px] text-xs text-red-600 mb-2;
+  }
+
+  .card {
+    @apply bg-white rounded-xl border border-slate-200 shadow-md p-6;
+  }
+
+  .mensaje-formulario {
+    @apply hidden rounded-lg p-3 text-sm mb-3;
+  }
+
+  .mensaje-visible {
+    @apply block;
+  }
+
+  .mensaje-exito {
+    @apply bg-green-50 border border-green-500 text-green-800;
+  }
+
+  .mensaje-error {
+    @apply bg-red-50 border border-red-500 text-red-800;
+  }
+}
