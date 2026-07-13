@@ -31,6 +31,7 @@
     <li><a href="#dashboard" class="text-white font-bold hover:text-institucional-azul transition">Dashboard</a></li>
     <li><a href="#registro" class="text-white font-bold hover:text-institucional-azul transition">Registro</a></li>
     <li><a href="#resumen" class="text-white font-bold hover:text-institucional-azul transition">Resumen</a></li>
+    <li><a href="#historial" class="text-white font-bold hover:text-institucional-azul transition">Historial</a></li>
     <li><a href="#contacto" class="text-white font-bold hover:text-institucional-azul transition">Contacto</a></li>
   </ul>
 </nav>
@@ -66,7 +67,19 @@
       <h2 class="font-bold mb-1">Formulario de Registro de Datos</h2>
       <p class="text-slate-500 mb-5">Complete los siguientes campos para registrar una nueva informacion.</p>
 
+      <!-- Aviso de sesión sobre el formulario (Etapa 4 - Autenticación) -->
+      <div id="avisoSesion" class="rounded-lg p-3 text-sm mb-3 bg-slate-50 border border-slate-200 text-slate-600 hidden">
+        Cualquiera puede registrar datos. Para editar o eliminar registros, <a href="/login.html" class="underline font-semibold text-institucional-naranja">inicia sesión como administrador</a>.
+      </div>
+
       <form id="formRegistro" action="#" method="post" novalidate class="flex flex-col">
+        <input type="hidden" id="registroId" value="" />
+
+        <!-- ID de Empresa (Etapa 4 - Control de acceso) -->
+        <label for="idEmpresa" class="font-bold mb-1">ID de Empresa</label>
+        <input type="text" id="idEmpresa" name="idEmpresa" class="input-field" placeholder="Ej: UAPA-2026" required />
+        <small class="campo-error" id="errorIdEmpresa"></small>
+
         <label for="nombre" class="font-bold mb-1">Nombre completo</label>
         <input type="text" id="nombre" name="nombre" class="input-field" placeholder="Ingrese su nombre" required />
         <small class="campo-error" id="errorNombre"></small>
@@ -96,7 +109,8 @@
 
         <div id="mensajeFormulario" class="mensaje-formulario" aria-live="polite"></div>
 
-        <button type="submit" class="btn-primary">Registrar Datos</button>
+        <button type="submit" id="btnGuardar" class="btn-primary">Registrar Datos</button>
+        <button type="button" id="btnCancelarEdicion" class="btn-secondary mt-2 hidden">Cancelar edición</button>
         <button type="button" id="btnLimpiar" class="btn-secondary mt-2">Limpiar historial</button>
       </form>
     </section>
@@ -119,6 +133,32 @@
     </aside>
   </section>
 <!-- Darlenny Altagracia Pimentel Ramos -->
+
+<!-- Historial de Accesos (Etapa 4 - Control de acceso) -->
+  <section class="card mt-8" id="historial">
+    <h2 class="font-bold mb-1">Historial de Accesos</h2>
+    <p class="text-slate-500 mb-4">Control de quién intentó registrarse con su ID de Empresa: aceptados y rechazados. Solo visible para el administrador.</p>
+
+    <div id="avisoHistorial" class="rounded-lg p-3 text-sm mb-3 bg-slate-50 border border-slate-200 text-slate-600">
+      Inicia sesión como administrador para ver el historial de accesos.
+    </div>
+
+    <div id="contenedorHistorial" class="hidden overflow-x-auto">
+      <table class="w-full text-left text-sm border-collapse">
+        <thead>
+          <tr class="bg-slate-100 text-institucional-azul">
+            <th class="p-2.5 font-bold">Nombre</th>
+            <th class="p-2.5 font-bold">Correo</th>
+            <th class="p-2.5 font-bold">ID Empresa</th>
+            <th class="p-2.5 font-bold">Resultado</th>
+            <th class="p-2.5 font-bold">Fecha</th>
+          </tr>
+        </thead>
+        <tbody id="tablaHistorial"></tbody>
+      </table>
+    </div>
+  </section>
+<!-- Historial de Accesos (Etapa 4 - Control de acceso) -->
 
 </main>
 
